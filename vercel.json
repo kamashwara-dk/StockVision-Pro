@@ -1,0 +1,21 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "next build",
+  "devCommand": "next dev --webpack",
+  "installCommand": "npm install",
+  "regions": ["sin1"],
+  "functions": {
+    "app/api/predict/route.ts": {
+      "maxDuration": 60
+    },
+    "app/api/quote/route.ts": {
+      "maxDuration": 15
+    },
+    "app/api/auth/login/route.ts": {
+      "maxDuration": 15
+    },
+    "app/api/auth/signup/route.ts": {
+      "maxDuration": 15
+    }
+  }
+}
