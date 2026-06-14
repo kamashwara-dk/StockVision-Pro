@@ -1,10 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient as createAdminClient } from '@supabase/supabase-js'
 import { createServerClient } from '@supabase/ssr'
-import { getAppUrl } from '@/lib/appUrl'
 
-// Uses the service-role key to create users with email_confirm: true
-// so no verification email is required. Then immediately signs them in.
 export async function POST(request: NextRequest) {
   const formData = await request.formData()
   const email = (formData.get('email') as string)?.trim()
@@ -12,14 +9,14 @@ export async function POST(request: NextRequest) {
   const confirmPassword = formData.get('confirmPassword') as string
   const name = (formData.get('name') as string)?.trim()
 
-  const redirect = (path: string) =>
+  const redir = (path: string) =>
     NextResponse.redirect(new URL(path, request.url), { status: 303 })
 
-  if (!email || !password || !name) return redirect('/signup?error=Please+fill+in+all+fields')
-  if (password !== confirmPassword) return redirect('/signup?error=Passwords+do+not+match')
-  if (password.length < 8) return redirect('/signup?error=Password+must+be+at+least+8+characters')
+  if (!email || !password || !name) return redir('/signup?error=Please+fill+in+all+fields')
+  if (password !== confirmPassword) return redir('/signup?error=Passwords+do+not+match')
+  if (password.length < 8) return redir('/signup?error=Password+must+be+at+least+8+characters')
 
-  // Admin client bypasses email confirmation
+  // Admin client — bypasses email confirmation
   const adminClient = createAdminClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!,
@@ -27,26 +24,23 @@ export async function POST(request: NextRequest) {
   )
 
   const { data: created, error: createError } = await adminClient.auth.admin.createUser({
-    email,
-    password,
-    email_confirm: true, // auto-confirmed — no email needed
+    email, password,
+    email_confirm: true,
     user_metadata: { display_name: name },
   })
 
   if (createError) {
     const msg = createError.message.toLowerCase()
     if (msg.includes('already') || msg.includes('registered') || msg.includes('exists')) {
-      return redirect('/signup?error=An+account+with+this+email+already+exists')
+      return redir('/signup?error=An+account+with+this+email+already+exists')
     }
-    return redirect('/signup?error=' + encodeURIComponent(createError.message))
+    return redir('/signup?error=' + encodeURIComponent(createError.message))
   }
 
-  if (!created?.user) return redirect('/signup?error=Account+creation+failed')
+  if (!created?.user) return redir('/signup?error=Account+creation+failed')
 
-  // Auto sign-in after creation — attach cookies to the redirect response
-  const successResponse = NextResponse.redirect(new URL('/dashboard', request.url), {
-    status: 303,
-  })
+  // Collect ALL Supabase cookies (may be chunked for large JWTs)
+  const cookiesToSet: { name: string; value: string; options: Record<string, unknown> }[] = []
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -54,9 +48,9 @@ export async function POST(request: NextRequest) {
     {
       cookies: {
         getAll() { return request.cookies.getAll() },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) => {
-            successResponse.cookies.set(name, value, options)
+        setAll(items) {
+          items.forEach(({ name, value, options }) => {
+            cookiesToSet.push({ name, value, options })
           })
         },
       },
@@ -66,9 +60,13 @@ export async function POST(request: NextRequest) {
   const { error: signInError } = await supabase.auth.signInWithPassword({ email, password })
 
   if (signInError) {
-    // Account created but auto-sign-in failed — send to login page
-    return redirect('/login?success=Account+created!+Please+sign+in.')
+    return redir('/login?success=Account+created!+Please+sign+in.')
   }
 
-  return successResponse
+  const response = NextResponse.redirect(new URL('/dashboard', request.url), { status: 303 })
+  cookiesToSet.forEach(({ name, value, options }) => {
+    response.cookies.set(name, value, options as Parameters<typeof response.cookies.set>[2])
+  })
+
+  return response
 }
