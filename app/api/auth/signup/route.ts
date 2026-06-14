@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient as createAdminClient } from '@supabase/supabase-js'
 import { createServerClient } from '@supabase/ssr'
+import { getAppUrl } from '@/lib/appUrl'
 
 // Uses the service-role key to create users with email_confirm: true
 // so no verification email is required. Then immediately signs them in.
