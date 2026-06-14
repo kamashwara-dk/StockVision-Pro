@@ -56,15 +56,7 @@ export const metadata: Metadata = {
     images: [`${APP_URL}/opengraph-image`],
   },
 
-  // ── Icons ──
-  icons: {
-    icon: [
-      { url: "/icon.svg", type: "image/svg+xml" },
-    ],
-    apple: "/icon.svg",
-  },
-
-  // ── Theme ──  (moved to viewport export above)
+  // ── Icons (auto-discovered from app/icon.tsx + app/apple-icon.tsx) ──
 
   // ── Robots ──
   robots: {
