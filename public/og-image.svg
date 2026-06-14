@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0A0F1E"/>
+      <stop offset="60%" stop-color="#0D1425"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="400" y2="400" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#00E5A0"/>
+      <stop offset="100%" stop-color="#00C98D"/>
+    </linearGradient>
+    <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="300" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#00E5A0" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#00E5A0" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softglow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="40" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <clipPath id="clip"><rect width="1200" height="630"/></clipPath>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+
+  <!-- Glow orbs -->
+  <ellipse cx="200" cy="150" rx="300" ry="300" fill="#00E5A0" opacity="0.04" filter="url(#softglow)"/>
+  <ellipse cx="1050" cy="500" rx="280" ry="280" fill="#4F46E5" opacity="0.06" filter="url(#softglow)"/>
+
+  <!-- Dot grid pattern -->
+  <pattern id="dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+    <circle cx="1" cy="1" r="1" fill="rgba(255,255,255,0.04)"/>
+  </pattern>
+  <rect width="1200" height="630" fill="url(#dots)"/>
+
+  <!-- ── Left side: Brand ── -->
+
+  <!-- Logo mark -->
+  <rect x="60" y="60" width="72" height="72" rx="16" fill="#111827" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  <!-- bars -->
+  <rect x="72" y="108" width="8" height="12" rx="2" fill="rgba(0,229,160,0.25)"/>
+  <rect x="83" y="100" width="8" height="20" rx="2" fill="rgba(0,229,160,0.25)"/>
+  <rect x="94" y="90" width="8" height="30" rx="2" fill="rgba(0,229,160,0.3)"/>
+  <rect x="105" y="80" width="8" height="40" rx="2" fill="rgba(0,229,160,0.35)"/>
+  <!-- trend line -->
+  <polyline points="76,106 87,98 98,87 109,76" stroke="#00E5A0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" filter="url(#glow)"/>
+  <circle cx="109" cy="76" r="3.5" fill="#00E5A0" filter="url(#glow)"/>
+
+  <!-- Brand name -->
+  <text x="152" y="101" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="800" letter-spacing="-0.5" fill="white">StockVision</text>
+  <text x="152" y="125" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#00E5A0" text-transform="uppercase">PRO</text>
+
+  <!-- Divider -->
+  <line x1="60" y1="168" x2="560" y2="168" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+
+  <!-- Tagline -->
+  <text x="60" y="230" font-family="system-ui, -apple-system, sans-serif" font-size="52" font-weight="800" letter-spacing="-1.5" fill="white">Invest Smarter.</text>
+  <text x="60" y="294" font-family="system-ui, -apple-system, sans-serif" font-size="52" font-weight="800" letter-spacing="-1.5" fill="url(#accentGrad)">Predict Bolder.</text>
+
+  <!-- Description -->
+  <text x="60" y="360" font-family="system-ui, -apple-system, sans-serif" font-size="22" fill="rgba(255,255,255,0.55)" letter-spacing="0.2">AI-powered portfolio tracking · Real-time ML forecasts</text>
+  <text x="60" y="390" font-family="system-ui, -apple-system, sans-serif" font-size="22" fill="rgba(255,255,255,0.55)" letter-spacing="0.2">Indian &amp; global market overview · Multi-currency</text>
+
+  <!-- Stat pills -->
+  <rect x="60" y="430" width="160" height="44" rx="22" fill="rgba(0,229,160,0.1)" stroke="rgba(0,229,160,0.25)" stroke-width="1"/>
+  <text x="140" y="458" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="700" fill="#00E5A0" text-anchor="middle">89% Accuracy</text>
+
+  <rect x="236" y="430" width="150" height="44" rx="22" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  <text x="311" y="458" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="700" fill="rgba(255,255,255,0.7)" text-anchor="middle">12,400+ Users</text>
+
+  <rect x="402" y="430" width="138" height="44" rx="22" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  <text x="471" y="458" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="700" fill="rgba(255,255,255,0.7)" text-anchor="middle">$2.4B Tracked</text>
+
+  <!-- URL -->
+  <text x="60" y="560" font-family="system-ui, -apple-system, sans-serif" font-size="18" fill="rgba(255,255,255,0.25)" letter-spacing="0.5">stockvision-pro.vercel.app</text>
+
+  <!-- ── Right side: Mock chart card ── -->
+  <g clip-path="url(#clip)">
+    <!-- Card -->
+    <rect x="660" y="60" width="490" height="510" rx="24" fill="#111827" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+
+    <!-- Card header -->
+    <text x="700" y="112" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="rgba(255,255,255,0.4)" letter-spacing="2">PORTFOLIO VALUE</text>
+    <text x="700" y="158" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="800" fill="white">₹2,84,320</text>
+    <text x="700" y="188" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="600" fill="#00E5A0">▲ +18.4% all-time</text>
+
+    <!-- Divider -->
+    <line x1="700" y1="210" x2="1110" y2="210" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+
+    <!-- Mini chart area fill -->
+    <polygon
+      points="700,430 730,410 770,415 820,390 870,370 920,345 970,320 1020,300 1070,275 1110,250 1110,470 700,470"
+      fill="url(#chartGrad)"
+    />
+    <!-- Chart line -->
+    <polyline
+      points="700,430 730,410 770,415 820,390 870,370 920,345 970,320 1020,300 1070,275 1110,250"
+      stroke="#00E5A0"
+      stroke-width="3"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      fill="none"
+      filter="url(#glow)"
+    />
+    <!-- End dot -->
+    <circle cx="1110" cy="250" r="6" fill="#00E5A0" filter="url(#glow)"/>
+    <circle cx="1110" cy="250" r="11" fill="none" stroke="#00E5A0" stroke-width="1.5" opacity="0.4"/>
+
+    <!-- X axis labels -->
+    <text x="700"  y="500" font-family="system-ui" font-size="13" fill="rgba(255,255,255,0.25)" text-anchor="middle">Jul</text>
+    <text x="790"  y="500" font-family="system-ui" font-size="13" fill="rgba(255,255,255,0.25)" text-anchor="middle">Aug</text>
+    <text x="880"  y="500" font-family="system-ui" font-size="13" fill="rgba(255,255,255,0.25)" text-anchor="middle">Sep</text>
+    <text x="970"  y="500" font-family="system-ui" font-size="13" fill="rgba(255,255,255,0.25)" text-anchor="middle">Oct</text>
+    <text x="1060" y="500" font-family="system-ui" font-size="13" fill="rgba(255,255,255,0.25)" text-anchor="middle">Nov</text>
+    <text x="1110" y="500" font-family="system-ui" font-size="13" fill="#00E5A0" text-anchor="middle">Now</text>
+
+    <!-- Mini stock chips -->
+    <rect x="700" y="226" width="90" height="30" rx="8" fill="rgba(0,229,160,0.1)" stroke="rgba(0,229,160,0.2)" stroke-width="1"/>
+    <text x="745" y="246" font-family="system-ui" font-size="13" font-weight="700" fill="#00E5A0" text-anchor="middle">AAPL ▲</text>
+
+    <rect x="800" y="226" width="90" height="30" rx="8" fill="rgba(255,90,90,0.1)" stroke="rgba(255,90,90,0.2)" stroke-width="1"/>
+    <text x="845" y="246" font-family="system-ui" font-size="13" font-weight="700" fill="#FF5A5A" text-anchor="middle">TSLA ▼</text>
+
+    <rect x="900" y="226" width="90" height="30" rx="8" fill="rgba(0,229,160,0.1)" stroke="rgba(0,229,160,0.2)" stroke-width="1"/>
+    <text x="945" y="246" font-family="system-ui" font-size="13" font-weight="700" fill="#00E5A0" text-anchor="middle">NVDA ▲</text>
+
+    <rect x="1000" y="226" width="98" height="30" rx="8" fill="rgba(0,229,160,0.1)" stroke="rgba(0,229,160,0.2)" stroke-width="1"/>
+    <text x="1049" y="246" font-family="system-ui" font-size="13" font-weight="700" fill="#00E5A0" text-anchor="middle">NIFTY ▲</text>
+  </g>
+
+  <!-- Bottom border accent -->
+  <rect x="0" y="622" width="1200" height="8" rx="0" fill="url(#accentGrad)" opacity="0.6"/>
+</svg>
