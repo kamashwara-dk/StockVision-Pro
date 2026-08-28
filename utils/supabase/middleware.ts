@@ -34,18 +34,21 @@ export async function updateSession(request: NextRequest) {
   // Refresh session — must happen before any redirect logic
   const { data: { user } } = await supabase.auth.getUser()
 
+  const { pathname } = request.nextUrl
+
   // Redirect unauthenticated users away from /dashboard
-  if (!user && request.nextUrl.pathname.startsWith('/dashboard')) {
+  if (!user && pathname.startsWith('/dashboard')) {
     const url = request.nextUrl.clone()
     url.pathname = '/login'
     return NextResponse.redirect(url)
   }
 
   // Redirect authenticated users away from login/signup to dashboard
+  // (but never redirect away from reset-password — the user needs to be
+  //  authenticated there to call updateUser, so let it through always)
   if (
     user &&
-    (request.nextUrl.pathname === '/login' ||
-     request.nextUrl.pathname === '/signup')
+    (pathname === '/login' || pathname === '/signup')
   ) {
     const url = request.nextUrl.clone()
     url.pathname = '/dashboard'
