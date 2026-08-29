@@ -26,7 +26,7 @@ const MONTHS_MAP: Record<Filter, number | null> = {
 };
 
 export function PortfolioChart() {
-  const { formatCurrency } = usePortfolio();
+  const { formatCurrency, currency } = usePortfolio();
   const [data, setData] = useState<PortfolioHistory[]>([]);
   const [loading, setLoading] = useState(true);
   const [timeFilter, setTimeFilter] = useState<Filter>("1Y");
@@ -127,8 +127,14 @@ export function PortfolioChart() {
                 fontSize={12}
                 tickLine={false}
                 axisLine={false}
-                tickFormatter={(val) => `$${(val / 1000).toFixed(0)}k`}
-                width={60}
+                tickFormatter={(val) => {
+                  // Compact format: ₹1.2L, ₹2.5L, $1.2k, etc.
+                  const sym = currency === "INR" ? "₹" : currency === "USD" ? "$" : currency === "EUR" ? "€" : currency === "GBP" ? "£" : currency;
+                  if (val >= 1_00_000) return `${sym}${(val / 1_00_000).toFixed(1)}L`;
+                  if (val >= 1_000) return `${sym}${(val / 1_000).toFixed(0)}k`;
+                  return `${sym}${val}`;
+                }}
+                width={70}
               />
               <Tooltip
                 contentStyle={{
@@ -139,7 +145,7 @@ export function PortfolioChart() {
                 }}
                 itemStyle={{ color: "var(--accent)" }}
                 formatter={(value) => [
-                  `$${Number(value).toLocaleString()}`,
+                  formatCurrency(Number(value)),
                   "Value",
                 ]}
                 labelStyle={{

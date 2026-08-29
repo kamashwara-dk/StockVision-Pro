@@ -11,7 +11,7 @@ const initialHoldings: StockHolding[] = [
 ];
 
 export const AVAILABLE_CURRENCIES = [
-  "USD", "EUR", "GBP", "INR",
+  "INR", "USD", "EUR", "GBP",
   "AED", "SAR", "QAR", "KWD", "BHD", "OMR", "ILS",
 ];
 
@@ -33,7 +33,7 @@ const PortfolioContext = createContext<PortfolioContextType | undefined>(undefin
 
 export function PortfolioProvider({ children }: { children: React.ReactNode }) {
   const [holdings, setHoldings]       = useState<StockHolding[]>(initialHoldings);
-  const [currency, setCurrency]       = useState("USD");
+  const [currency, setCurrency]       = useState("INR");
   const [exchangeRates, setRates]     = useState<Record<string, number>>({ USD: 1 });
   const [ratesLoading, setLoading]    = useState(true);
 
@@ -82,16 +82,16 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
   };
 
   const fmt = (amount: number, curr: string) =>
-    new Intl.NumberFormat("en-IN", {   // en-IN gives ₹ grouping style
+    new Intl.NumberFormat("en-IN", {   // en-IN gives Indian grouping: 1,00,000
       style: "currency",
       currency: curr,
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     }).format(amount);
 
-  /** Portfolio values — stored in USD, convert to display currency */
-  const formatCurrency = (usdValue: number) =>
-    fmt(convert(usdValue, "USD"), currency);
+  /** Portfolio values — stored in INR (NSE/BSE stocks), convert to display currency */
+  const formatCurrency = (inrValue: number) =>
+    fmt(convert(inrValue, "INR"), currency);
 
   /** Market quote — price already in sourceCurrency from Yahoo, convert to display */
   const formatQuote = (price: number, sourceCurrency: string) =>
