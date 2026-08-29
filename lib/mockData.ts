@@ -1,48 +1,48 @@
 import { StockHolding, AIPrediction, GlobalScenario, NewsItem, PortfolioHistory } from './types';
 
 export const mockHoldings: StockHolding[] = [
-  { symbol: 'AAPL', name: 'Apple Inc.', shares: 150, avgCost: 165.20, currentPrice: 195.40, sector: 'Technology' },
-  { symbol: 'TSLA', name: 'Tesla Inc.', shares: 45, avgCost: 210.50, currentPrice: 185.10, sector: 'Automotive' },
-  { symbol: 'NVDA', name: 'NVIDIA Corp', shares: 60, avgCost: 420.00, currentPrice: 850.30, sector: 'Semiconductors' },
-  { symbol: 'MSFT', name: 'Microsoft Corp.', shares: 100, avgCost: 310.00, currentPrice: 420.55, sector: 'Technology' },
-  { symbol: 'AMZN', name: 'Amazon.com', shares: 200, avgCost: 130.40, currentPrice: 178.15, sector: 'Consumer Cyclical' },
-  { symbol: 'GOOGL', name: 'Alphabet Inc.', shares: 80, avgCost: 125.00, currentPrice: 160.20, sector: 'Communication' },
-  { symbol: 'META', name: 'Meta Platforms', shares: 120, avgCost: 280.00, currentPrice: 490.10, sector: 'Communication' },
-  { symbol: 'NFLX', name: 'Netflix Inc.', shares: 30, avgCost: 410.00, currentPrice: 620.45, sector: 'Communication' },
-  { symbol: 'AMD', name: 'Advanced Micro Devices', shares: 250, avgCost: 95.00, currentPrice: 170.80, sector: 'Semiconductors' },
-  { symbol: 'RELIANCE.NS', name: 'Reliance Industries', shares: 500, avgCost: 2300.00, currentPrice: 2950.00, sector: 'Energy' },
+  { symbol: 'RELIANCE.NS', name: 'Reliance Industries', shares: 10,  avgCost: 2800.00, currentPrice: 2950.00, sector: 'Energy',       currency: 'INR' },
+  { symbol: 'TCS.NS',      name: 'TCS',                 shares: 5,   avgCost: 3400.00, currentPrice: 3600.00, sector: 'Technology',   currency: 'INR' },
+  { symbol: 'INFY.NS',     name: 'Infosys',             shares: 20,  avgCost: 1350.00, currentPrice: 1480.00, sector: 'Technology',   currency: 'INR' },
+  { symbol: 'HDFCBANK.NS', name: 'HDFC Bank',           shares: 15,  avgCost: 1550.00, currentPrice: 1620.00, sector: 'Finance',      currency: 'INR' },
+  { symbol: 'ICICIBANK.NS',name: 'ICICI Bank',          shares: 25,  avgCost: 900.00,  currentPrice: 970.00,  sector: 'Finance',      currency: 'INR' },
+  { symbol: 'WIPRO.NS',    name: 'Wipro',               shares: 30,  avgCost: 440.00,  currentPrice: 460.00,  sector: 'Technology',   currency: 'INR' },
+  { symbol: 'TATAMOTORS.NS',name: 'Tata Motors',        shares: 40,  avgCost: 700.00,  currentPrice: 780.00,  sector: 'Automotive',   currency: 'INR' },
+  { symbol: 'SUNPHARMA.NS',name: 'Sun Pharma',          shares: 10,  avgCost: 1200.00, currentPrice: 1350.00, sector: 'Healthcare',   currency: 'INR' },
+  { symbol: 'CUPID.NS',    name: 'Cupid Ltd',           shares: 5,   avgCost: 282.00,  currentPrice: 282.00,  sector: 'Healthcare',   currency: 'INR' },
+  { symbol: 'ONGC.NS',     name: 'ONGC',                shares: 50,  avgCost: 185.00,  currentPrice: 195.00,  sector: 'Energy',       currency: 'INR' },
 ];
 
 export const mockPredictions: AIPrediction[] = [
   {
-    symbol: 'AAPL',
-    currency: 'USD',
-    currentPrice: 195.40,
-    targetPrice: 210.00,
-    confidence: 85,
-    bullCase: 230.00,
-    bearCase: 175.00,
-    keyFactors: ['Strong Services growth', 'Upcoming iPhone cycle', 'Stable margins']
+    symbol: 'RELIANCE.NS',
+    currency: 'INR',
+    currentPrice: 2950.00,
+    targetPrice: 3200.00,
+    confidence: 82,
+    bullCase: 3500.00,
+    bearCase: 2700.00,
+    keyFactors: ['Strong Jio subscriber growth', 'Retail expansion', 'Green energy capex']
   },
   {
-    symbol: 'TSLA',
-    currency: 'USD',
-    currentPrice: 185.10,
-    targetPrice: 160.00,
-    confidence: 72,
-    bullCase: 220.00,
-    bearCase: 140.00,
-    keyFactors: ['Margin pressure', 'Slower EV adoption', 'FSD regulatory hurdles']
+    symbol: 'TCS.NS',
+    currency: 'INR',
+    currentPrice: 3600.00,
+    targetPrice: 3900.00,
+    confidence: 78,
+    bullCase: 4200.00,
+    bearCase: 3200.00,
+    keyFactors: ['AI-driven deal wins', 'Stable margins', 'Strong dollar revenue']
   },
   {
-    symbol: 'NVDA',
-    currency: 'USD',
-    currentPrice: 850.30,
-    targetPrice: 950.00,
-    confidence: 91,
-    bullCase: 1100.00,
-    bearCase: 750.00,
-    keyFactors: ['AI data center demand', 'Next-gen chip release', 'Supply chain stability']
+    symbol: 'INFY.NS',
+    currency: 'INR',
+    currentPrice: 1480.00,
+    targetPrice: 1600.00,
+    confidence: 74,
+    bullCase: 1750.00,
+    bearCase: 1300.00,
+    keyFactors: ['Deal pipeline recovery', 'Cost optimisation', 'Cloud migration demand']
   }
 ];
 

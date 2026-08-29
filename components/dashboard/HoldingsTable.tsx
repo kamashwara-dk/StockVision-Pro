@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/Badge";
 import { Plus, Trash2, Loader2, ExternalLink } from "lucide-react";
 
 export function HoldingsTable() {
-  const { holdings, addHolding, removeHolding, formatCurrency } =
+  const { holdings, addHolding, removeHolding, formatCurrency, formatQuote } =
     usePortfolio();
   const [isAdding, setIsAdding] = useState(false);
   const [loadingSymbol, setLoadingSymbol] = useState("");
@@ -29,11 +29,13 @@ export function HoldingsTable() {
 
     try {
       let currentPrice = Number(avgCost);
+      let detectedCurrency = "INR"; // default to INR for NSE/BSE stocks
       try {
         const res = await fetch(`/api/quote?ticker=${encodeURIComponent(sym)}`);
         if (res.ok) {
           const data = await res.json();
           if (data.price) currentPrice = data.price;
+          if (data.currency) detectedCurrency = data.currency;
         }
       } catch {
         // fall back to avgCost
@@ -46,6 +48,7 @@ export function HoldingsTable() {
         avgCost: Number(avgCost),
         currentPrice,
         sector: sector || "Other",
+        currency: detectedCurrency,
       });
 
       setSymbol("");
@@ -122,7 +125,7 @@ export function HoldingsTable() {
             </div>
             <div className="flex-1 min-w-[120px]">
               <label className="block text-xs uppercase text-[var(--text-secondary)] mb-1">
-                Avg Buy (USD) *
+                Avg Buy Price *
               </label>
               <input
                 required
@@ -210,6 +213,8 @@ export function HoldingsTable() {
                 const invested = stock.shares * stock.avgCost;
                 const returnPct = ((value - invested) / invested) * 100;
                 const isPositive = returnPct >= 0;
+                // Use the stock's native currency for all price display
+                const nativeCurrency = stock.currency ?? "USD";
 
                 let signal: "BUY" | "HOLD" | "WATCH" = "HOLD";
                 let signalVariant: "positive" | "warning" | "negative" =
@@ -243,13 +248,13 @@ export function HoldingsTable() {
                       {stock.shares}
                     </td>
                     <td className="px-6 py-4 text-right font-mono">
-                      {formatCurrency(stock.avgCost)}
+                      {formatQuote(stock.avgCost, nativeCurrency)}
                     </td>
                     <td className="px-6 py-4 text-right font-mono text-white">
-                      {formatCurrency(stock.currentPrice)}
+                      {formatQuote(stock.currentPrice, nativeCurrency)}
                     </td>
                     <td className="px-6 py-4 text-right font-mono font-medium text-white">
-                      {formatCurrency(value)}
+                      {formatQuote(value, nativeCurrency)}
                     </td>
                     <td
                       className={`px-6 py-4 text-right font-mono font-medium ${

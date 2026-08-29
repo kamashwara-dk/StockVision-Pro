@@ -5,6 +5,7 @@ export interface StockHolding {
   avgCost: number;
   currentPrice: number;
   sector: string;
+  currency?: string; // native currency from Yahoo (USD, INR, etc.) — defaults to USD
 }
 
 export interface AIPrediction {

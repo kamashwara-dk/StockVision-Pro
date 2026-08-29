@@ -4,9 +4,10 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import { StockHolding } from "@/lib/types";
 
 const initialHoldings: StockHolding[] = [
-  { symbol: "AAPL",  name: "Apple Inc.",       shares: 150, avgCost: 165.2,  currentPrice: 195.4,  sector: "Technology"    },
-  { symbol: "TSLA",  name: "Tesla Inc.",        shares: 45,  avgCost: 210.5,  currentPrice: 185.1,  sector: "Automotive"    },
-  { symbol: "NVDA",  name: "NVIDIA Corp",       shares: 60,  avgCost: 420.0,  currentPrice: 850.3,  sector: "Semiconductors"},
+  { symbol: "RELIANCE.NS", name: "Reliance Industries", shares: 10,  avgCost: 2800.0, currentPrice: 2800.0, sector: "Energy",      currency: "INR" },
+  { symbol: "TCS.NS",      name: "TCS",                 shares: 5,   avgCost: 3500.0, currentPrice: 3500.0, sector: "Technology",  currency: "INR" },
+  { symbol: "INFY.NS",     name: "Infosys",             shares: 20,  avgCost: 1400.0, currentPrice: 1400.0, sector: "Technology",  currency: "INR" },
+  { symbol: "CUPID.NS",    name: "Cupid Ltd",           shares: 5,   avgCost: 282.0,  currentPrice: 282.0,  sector: "Healthcare",  currency: "INR" },
 ];
 
 export const AVAILABLE_CURRENCIES = [
@@ -58,9 +59,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
             const res = await fetch(`/api/quote?ticker=${h.symbol}`);
             if (res.ok) {
               const d = await res.json();
-              // d.price is already in the stock's native currency (USD for US stocks)
-              // Holdings avgCost / currentPrice are stored in the stock's native currency (USD)
-              if (d.price) return { ...h, currentPrice: d.price };
+              if (d.price) return { ...h, currentPrice: d.price, currency: d.currency ?? h.currency ?? "USD" };
             }
           } catch { /* keep fallback */ }
           return h;
