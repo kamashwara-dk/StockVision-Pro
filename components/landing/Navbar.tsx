@@ -6,7 +6,7 @@ export function Navbar() {
     <div className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
       <nav className="pointer-events-auto flex items-center justify-between px-6 py-3 w-full max-w-4xl bg-white/5 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl shadow-black/50">
         <div className="flex items-center gap-2">
-          <div className="w-2.5 h-2.5 rounded-full bg-[var(--accent)] animate-pulse" />
+          <img src="/logo.svg" alt="StockVision Logo" className="w-7 h-7" />
           <span className="text-lg font-bold tracking-tight text-white">StockVision</span>
         </div>
 

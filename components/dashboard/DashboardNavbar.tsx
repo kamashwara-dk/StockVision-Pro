@@ -26,7 +26,7 @@ export function DashboardNavbar({ userName = 'Admin' }: { userName?: string }) {
 
           {/* Logo */}
           <div className="flex items-center gap-2 shrink-0">
-            <div className="w-2.5 h-2.5 rounded-full bg-[var(--accent)] animate-pulse" />
+            <img src="/logo.svg" alt="StockVision Logo" className="w-7 h-7" />
             <span className="text-base font-bold tracking-tight text-white">StockVision</span>
           </div>
 
