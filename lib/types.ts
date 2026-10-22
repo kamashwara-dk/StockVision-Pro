@@ -1,20 +1,52 @@
-/**
- * lib/types.ts — Domain types for the StockVision Pro frontend and API layer.
- *
- * These types mirror the API contract in spec §5 and the database schema in §6.
- * No mock data types; no portfolio/auth types.
- */
+export interface StockHolding {
+  symbol: string;
+  name: string;
+  shares: number;
+  avgCost: number;
+  currentPrice: number;
+  sector: string;
+  currency?: string; // native currency from Yahoo (USD, INR, etc.) — defaults to USD
+}
 
-// ─── Search ───────────────────────────────────────────────────────────────────
+export interface AIPrediction {
+  symbol: string;
+  currency: string;   // native currency from Yahoo (USD, INR, GBP …)
+  currentPrice: number;
+  targetPrice: number;
+  confidence: number; // 0-100
+  bullCase: number;
+  bearCase: number;
+  keyFactors: string[];
+}
+
+export interface GlobalScenario {
+  name: string;
+  icon: string;
+  description: string;
+  portfolioImpact: number;
+}
+
+export interface NewsItem {
+  headline: string;
+  source: string;
+  summary: string;
+  sentiment: 'Bullish' | 'Bearish' | 'Neutral';
+  timeAgo: string;
+}
+
+export interface PortfolioHistory {
+  date: string;
+  value: number;
+}
+
+// ─── Forecast domain types (new API layer) ────────────────────────────────────
 
 export interface SearchSuggestion {
   symbol: string;
   name: string;
   exchange: string;
-  type: string; // "Equity" | "ETF"
+  type: string;
 }
-
-// ─── Forecast job ─────────────────────────────────────────────────────────────
 
 export type ForecastStatus =
   | "queued"
@@ -30,15 +62,15 @@ export interface ForecastCreateResponse {
 }
 
 export interface ForecastMetrics {
-  directional_accuracy: number; // percent 0–100
-  mape: number;                  // percent
-  rmse: number;                  // in listing currency
+  directional_accuracy: number;
+  mape: number;
+  rmse: number;
 }
 
 export interface ForecastBaselines {
-  directional: number; // percent
-  mape: number;        // percent
-  rmse: number;        // in listing currency
+  directional: number;
+  mape: number;
+  rmse: number;
 }
 
 export interface ForecastResult {
@@ -46,19 +78,19 @@ export interface ForecastResult {
   predicted_close: number;
   interval_low: number;
   interval_high: number;
-  interval_coverage: number; // 0–1 (fraction, e.g. 0.82)
+  interval_coverage: number;
   metrics: ForecastMetrics;
   baselines: ForecastBaselines;
   data_range: {
-    train_start: string; // ISO date
+    train_start: string;
     train_end: string;
   };
   test_range: {
-    start: string; // ISO date
+    start: string;
     end: string;
   };
   n_test_days: number;
-  currency: string; // ISO 4217
+  currency: string;
   model_version: string;
 }
 
@@ -69,8 +101,6 @@ export interface ForecastStatusResponse {
   error: string | null;
   result: ForecastResult | null;
 }
-
-// ─── API error shape ──────────────────────────────────────────────────────────
 
 export interface ApiError {
   error: {
