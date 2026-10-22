@@ -5,17 +5,8 @@
   "installCommand": "npm install",
   "regions": ["sin1"],
   "functions": {
-    "app/api/predict/route.ts": {
-      "maxDuration": 60
-    },
-    "app/api/quote/route.ts": {
-      "maxDuration": 15
-    },
-    "app/api/auth/login/route.ts": {
-      "maxDuration": 15
-    },
-    "app/api/auth/signup/route.ts": {
-      "maxDuration": 15
-    }
+    "app/api/search/route.ts": { "maxDuration": 15 },
+    "app/api/forecasts/route.ts": { "maxDuration": 15 },
+    "app/api/forecasts/[runId]/route.ts": { "maxDuration": 15 }
   }
 }

@@ -1,78 +1,72 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { SkipLink } from "@/components/layout/SkipLink";
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const APP_URL = "https://stockvision-pro.vercel.app";
+const APP_URL =
+  process.env.NEXT_PUBLIC_APP_URL ?? "https://stockvision-pro.vercel.app";
 
 export const viewport: Viewport = {
-  themeColor: "#0A0F1E",
-  colorScheme: "dark",
+  themeColor: "#f8f9fa",
+  width: "device-width",
+  initialScale: 1,
 };
 
 export const metadata: Metadata = {
   metadataBase: new URL(APP_URL),
   title: {
-    default: "StockVision Pro | AI-Powered Market Intelligence",
+    default: "StockVision Pro | Stock Price Forecasts from 10 Years of Market Data",
     template: "%s | StockVision Pro",
   },
   description:
-    "Invest Smarter. Predict Bolder. AI-powered stock portfolio dashboard with real-time ML forecasts, Indian & global market overview, and multi-currency support.",
-  keywords: [
-    "stock market", "AI predictions", "portfolio tracker", "NSE", "BSE",
-    "Nifty", "Sensex", "S&P 500", "NASDAQ", "investment dashboard",
-  ],
+    "Search any NSE, BSE or US-listed stock and see a next-day price forecast with directional accuracy, MAPE and RMSE measured on held-out data.",
   authors: [{ name: "StockVision Pro" }],
-  creator: "StockVision Pro",
-
-  // ── Open Graph (WhatsApp, Facebook, LinkedIn, Discord) ──
   openGraph: {
     type: "website",
     url: APP_URL,
     siteName: "StockVision Pro",
-    title: "StockVision Pro | AI-Powered Market Intelligence",
+    title: "StockVision Pro | Stock Price Forecasts from 10 Years of Market Data",
     description:
-      "Real-time portfolio tracking · ML price forecasts · Indian & global markets · Multi-currency",
+      "Search any NSE, BSE or US-listed stock and see a next-day price forecast with directional accuracy, MAPE and RMSE measured on held-out data.",
     images: [
       {
         url: `${APP_URL}/opengraph-image`,
         width: 1200,
         height: 630,
-        alt: "StockVision Pro — AI-Powered Market Intelligence",
+        alt: "StockVision Pro — stock price forecasts based on historical data",
       },
     ],
   },
-
-  // ── Twitter / X card ──
   twitter: {
     card: "summary_large_image",
-    title: "StockVision Pro | AI-Powered Market Intelligence",
+    title: "StockVision Pro | Stock Price Forecasts from 10 Years of Market Data",
     description:
-      "Real-time portfolio tracking · ML price forecasts · Indian & global markets",
+      "Search any NSE, BSE or US-listed stock and see a next-day price forecast with directional accuracy, MAPE and RMSE measured on held-out data.",
     images: [`${APP_URL}/opengraph-image`],
   },
-
-  // ── Icons (auto-discovered from app/icon.tsx + app/apple-icon.tsx) ──
-
-  // ── Robots ──
   robots: {
     index: true,
     follow: true,
+    googleBot: { index: true, follow: true },
   },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} antialiased`}>
+      <body className={inter.variable}>
+        {/* Skip to main content — satisfies WCAG 2.4.1 */}
+        <SkipLink />
         {children}
       </body>
     </html>

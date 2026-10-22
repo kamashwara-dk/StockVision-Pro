@@ -1,0 +1,27 @@
+# ─── Core runtime ────────────────────────────────────────────────────────────
+fastapi==0.115.12
+uvicorn[standard]==0.34.2
+pydantic==2.11.3
+
+# ─── Data provider (Yahoo Finance) ───────────────────────────────────────────
+# WARNING: yfinance wraps unofficial Yahoo Finance endpoints.
+# Yahoo's Terms of Service restrict commercial use.
+# To swap providers, implement MarketDataProvider in a new file under provider/
+# and update the provider instantiation in main.py. See README for instructions.
+yfinance==0.2.55
+requests==2.32.3
+pandas==2.2.3
+numpy==2.2.5
+
+# ─── Machine learning ─────────────────────────────────────────────────────────
+scikit-learn==1.6.1
+
+# ─── Exchange calendar ────────────────────────────────────────────────────────
+exchange_calendars==4.6.1
+
+# ─── Database (Supabase service role) ────────────────────────────────────────
+supabase==2.15.2
+
+# ─── Dev / test ───────────────────────────────────────────────────────────────
+pytest==8.3.5
+pytest-asyncio==0.25.3
