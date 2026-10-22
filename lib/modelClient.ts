@@ -13,6 +13,17 @@ export interface JobCreateResponse {
   status: string;
 }
 
+export interface QuoteResponse {
+  ticker:         string;
+  name:           string;
+  price:          number;
+  change_pct:     number | null;
+  currency:       string;
+  exchange:       string;
+  delay_minutes:  number;
+  prev_close:     number | null;
+}
+
 export interface JobStatusResponse {
   run_id: string;
   status: string;
@@ -48,6 +59,11 @@ export interface JobResult {
   n_test_days: number;
   currency: string;
   model_version: string;
+  chosen_model?: string;
+  val_range?: {
+    start: string;
+    end: string;
+  };
 }
 
 export interface SearchResultItem {
@@ -69,6 +85,30 @@ function getAuthHeaders(): HeadersInit {
   const key = process.env.MODEL_SERVICE_API_KEY;
   if (!key) return {};
   return { Authorization: `Bearer ${key}` };
+}
+
+/**
+ * GET /quote/:ticker — delayed quote for a single ticker.
+ */
+export async function getQuote(ticker: string): Promise<QuoteResponse> {
+  const resp = await fetch(
+    `${getServiceUrl()}/quote/${encodeURIComponent(ticker)}`,
+    {
+      headers: getAuthHeaders(),
+      // Allow 60 s in-process cache — quotes are delayed anyway.
+      next: { revalidate: 60 },
+    }
+  );
+
+  if (!resp.ok) {
+    const body = await resp.json().catch(() => ({}));
+    throw new ModelServiceError(
+      resp.status,
+      body?.detail?.message ?? body?.detail ?? `Quote service error ${resp.status}`
+    );
+  }
+
+  return resp.json() as Promise<QuoteResponse>;
 }
 
 /**
