@@ -80,6 +80,18 @@ class MarketDataProvider(abc.ABC):
         """
 
     @abc.abstractmethod
+    def get_quote(self, ticker: str) -> dict:
+        """
+        Return the latest delayed quote for *ticker*.
+
+        Returns a dict with at minimum:
+          ticker, price, change_pct, currency, exchange, name, delay_minutes.
+
+        Raises TickerNotFoundError if the ticker is unknown.
+        Raises DataFetchError on transient network failures.
+        """
+
+    @abc.abstractmethod
     def get_history(self, ticker: str, years: int = 10) -> HistoryResult:
         """
         Fetch up to *years* years of daily adjusted OHLCV for *ticker*.

@@ -133,6 +133,56 @@ class YahooProvider(MarketDataProvider):
 
         return results
 
+    # ── Quote ─────────────────────────────────────────────────────────────────
+
+    def get_quote(self, ticker: str) -> dict:
+        """
+        Return the latest delayed quote via yfinance Ticker.info.
+
+        Delay is typically 15 minutes for NSE/NYSE; we report the
+        known maximum (15 min) to be conservative.
+        """
+        try:
+            t = yf.Ticker(ticker)
+            info = t.info or {}
+        except Exception as exc:
+            raise DataFetchError(f"Quote fetch failed for {ticker}: {exc}") from exc
+
+        def _safe(key, default=None):
+            v = info.get(key, default)
+            return v if v not in (None, "N/A", "") else default
+
+        price = (
+            _safe("currentPrice")
+            or _safe("regularMarketPrice")
+            or _safe("navPrice")
+        )
+        if price is None:
+            raise TickerNotFoundError(
+                f"No price data available for '{ticker}'."
+            )
+
+        prev_close = _safe("previousClose") or _safe("regularMarketPreviousClose")
+        change_pct = (
+            ((price - prev_close) / prev_close * 100)
+            if prev_close and prev_close != 0
+            else None
+        )
+
+        exchange_code = info.get("exchange") or ""
+        exchange_name = _EXCHANGE_MAP.get(exchange_code, exchange_code or "Unknown")
+
+        return {
+            "ticker":         ticker.upper(),
+            "name":           _safe("longName") or _safe("shortName", ticker.upper()),
+            "price":          round(float(price), 4),
+            "change_pct":     round(change_pct, 2) if change_pct is not None else None,
+            "currency":       (_safe("currency") or "USD").upper(),
+            "exchange":       exchange_name,
+            "delay_minutes":  15,
+            "prev_close":     round(float(prev_close), 4) if prev_close else None,
+        }
+
     # ── History ───────────────────────────────────────────────────────────────
 
     def get_history(self, ticker: str, years: int = 10) -> HistoryResult:
