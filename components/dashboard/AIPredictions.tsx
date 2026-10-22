@@ -106,7 +106,7 @@ export function AIPredictions() {
     <div className="pb-12">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between mb-6">
-        <SectionHeader title="AI Price Predictions" showPulse className="mb-0" />
+        <SectionHeader title="Price Forecasts" showPulse className="mb-0" />
         <div className="flex mt-4 md:mt-0 bg-[var(--card)] rounded-lg p-1 border border-[var(--border)]">
           {(["base", "bull", "bear"] as const).map((mode) => (
             <button
@@ -273,9 +273,9 @@ export function AIPredictions() {
                   </div>
                 </div>
 
-                {/* Confidence + expand */}
+                {/* Directional accuracy bar + expand */}
                 <div className="flex flex-col justify-between">
-                  <ConfidenceBar score={pred.confidence} />
+                  <ConfidenceBar score={pred.confidence} label="Directional accuracy" />
                   <button
                     onClick={() => toggleExpand(pred.symbol)}
                     className="flex items-center gap-1 text-xs font-medium text-[var(--accent)] mt-3 self-end"

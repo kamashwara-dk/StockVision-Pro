@@ -7,7 +7,8 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-const APP_URL = "https://stockvision-pro.vercel.app";
+const APP_URL =
+  process.env.NEXT_PUBLIC_APP_URL ?? "https://stockvision-pro.vercel.app";
 
 export const viewport: Viewport = {
   themeColor: "#0A0F1E",
@@ -17,48 +18,43 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(APP_URL),
   title: {
-    default: "StockVision Pro | AI-Powered Market Intelligence",
+    default: "StockVision Pro | Stock Price Forecasts from Market Data",
     template: "%s | StockVision Pro",
   },
   description:
-    "Invest Smarter. Predict Bolder. AI-powered stock portfolio dashboard with real-time ML forecasts, Indian & global market overview, and multi-currency support.",
+    "Track your portfolio, view delayed quotes from NSE, BSE, NYSE and NASDAQ, and get next-day price forecasts with accuracy measured on held-out data.",
   keywords: [
-    "stock market", "AI predictions", "portfolio tracker", "NSE", "BSE",
-    "Nifty", "Sensex", "S&P 500", "NASDAQ", "investment dashboard",
+    "stock market", "price forecast", "portfolio tracker", "NSE", "BSE",
+    "Nifty", "Sensex", "S&P 500", "NASDAQ", "stock analysis",
   ],
   authors: [{ name: "StockVision Pro" }],
   creator: "StockVision Pro",
 
-  // ── Open Graph (WhatsApp, Facebook, LinkedIn, Discord) ──
   openGraph: {
     type: "website",
     url: APP_URL,
     siteName: "StockVision Pro",
-    title: "StockVision Pro | AI-Powered Market Intelligence",
+    title: "StockVision Pro | Stock Price Forecasts from Market Data",
     description:
-      "Real-time portfolio tracking · ML price forecasts · Indian & global markets · Multi-currency",
+      "Portfolio tracking · Price forecasts from historical data · NSE, BSE, NYSE, NASDAQ · Delayed quotes",
     images: [
       {
         url: `${APP_URL}/opengraph-image`,
         width: 1200,
         height: 630,
-        alt: "StockVision Pro — AI-Powered Market Intelligence",
+        alt: "StockVision Pro — stock price forecasts from historical market data",
       },
     ],
   },
 
-  // ── Twitter / X card ──
   twitter: {
     card: "summary_large_image",
-    title: "StockVision Pro | AI-Powered Market Intelligence",
+    title: "StockVision Pro | Stock Price Forecasts from Market Data",
     description:
-      "Real-time portfolio tracking · ML price forecasts · Indian & global markets",
+      "Portfolio tracking · Price forecasts · NSE, BSE, NYSE, NASDAQ",
     images: [`${APP_URL}/opengraph-image`],
   },
 
-  // ── Icons (auto-discovered from app/icon.tsx + app/apple-icon.tsx) ──
-
-  // ── Robots ──
   robots: {
     index: true,
     follow: true,

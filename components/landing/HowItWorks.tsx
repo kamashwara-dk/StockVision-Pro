@@ -2,19 +2,22 @@ export function HowItWorks() {
   const steps = [
     {
       num: "01",
-      title: "Connect your portfolio",
-      description: "Securely link your brokerage account via API or enter your holdings manually in seconds."
+      title: "Add your holdings",
+      description:
+        "Enter your stock symbols, share count and average cost. Delayed quotes from Yahoo Finance populate your portfolio value automatically.",
     },
     {
       num: "02",
-      title: "AI analyzes holdings",
-      description: "Our engine cross-references your assets with global trends, news sentiment, and historical data."
+      title: "Browse the forecasts",
+      description:
+        "Search any NSE, BSE or US-listed equity. The model fetches up to 10 years of daily data, trains on the first 80%, and predicts the next trading day's close.",
     },
     {
       num: "03",
-      title: "Get predictions & signals",
-      description: "Receive actionable buy/sell signals, scenario impact reports, and intelligent price forecasts."
-    }
+      title: "Read the accuracy metrics",
+      description:
+        "Every forecast shows directional accuracy, MAPE and RMSE measured on held-out data the model never saw — alongside a naive baseline for comparison.",
+    },
   ]
 
   return (
@@ -26,13 +29,13 @@ export function HowItWorks() {
             <span className="text-xs font-semibold text-white uppercase tracking-wider">Workflow</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">How it works</h2>
-          <p className="text-[var(--text-secondary)] max-w-2xl mx-auto">Three simple steps to transform how you invest.</p>
+          <p className="text-[var(--text-secondary)] max-w-2xl mx-auto">
+            Three steps from sign-up to a forecast with real accuracy numbers.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center relative">
-          {/* Connecting line for desktop */}
           <div className="hidden md:block absolute top-8 left-[16%] right-[16%] h-px bg-[var(--border)]" />
-          
           {steps.map((step, idx) => (
             <div key={idx} className="relative z-10 flex flex-col items-center">
               <div className="w-16 h-16 rounded-full bg-[var(--primary-bg)] border-2 border-[var(--accent)] flex items-center justify-center text-xl font-bold text-[var(--accent)] mb-6 shadow-[0_0_15px_rgba(0,229,160,0.2)]">
